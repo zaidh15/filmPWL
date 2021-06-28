@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ProduksiController;
+use App\Http\Controllers\SutradaraController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,3 +27,8 @@ Route::get('/home', function () {
 Route::get('/about', function () {
     return view('layouts.about');
 });
+
+// Route::resource('/film', FilmController::class);
+// Route::resource('/genre', GenreController::class);
+Route::resource('/produksi', ProduksiController::class);
+Route::resource('/sutradara', SutradaraController::class);
