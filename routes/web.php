@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\SutradaraController;
+use App\Http\Controllers\FilmController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,24 @@ Route::get('/about', function () {
 
 // Route::resource('/film', FilmController::class);
 // Route::resource('/genre', GenreController::class);
-Route::resource('/produksi', ProduksiController::class);
-Route::resource('/sutradara', SutradaraController::class);
+Route::resource('/produksi', ProduksiController::class)->middleware('auth');
+Route::resource('/sutradara', SutradaraController::class)->middleware('auth');
+Route::resource('/film',FilmController::class)->middleware('auth');
+Route::get('generate-pdf', [FilmController::class, 'generatePDF'])->middleware('auth');
+Route::get('filmpdf', [FilmController::class, 'filmPDF'])->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/afterRegister', function () {
+    return view('layouts.afterRegister');
+});
+
+Route::get('/users', function () {
+    return view('layouts.users');
+});

@@ -15,17 +15,52 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ url('/about') }}">About us</a>
       </li>
+      @guest 
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('login') }}">Login</a>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('register') }}">Register</a>
+      </li>
+      @else
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Check Film
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          @if(Auth::user()->role != 'anggota')
           <a class="dropdown-item" href="{{ url('/produksi') }}">Produksi</a>
+          @endif
           <a class="dropdown-item" href="{{ url('/sutradara') }}">Sutradara</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+           <a class="dropdown-item" href="{{ url('/film') }}">Film</a>
         </div>
       </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          @if(empty(Auth::user()->name))
+          {{ '' }}
+          @else 
+          {{ Auth::user()->name }}
+          @endif
+
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ url('/produksi') }}">Profile</a>
+          @if(Auth::user()->role == 'administrator')
+          <a class="dropdown-item" href="{{ url('/users') }}">Kelola User</a>
+          @endif
+          <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+        </div>
+      </li>
+      @endguest
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

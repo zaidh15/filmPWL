@@ -8,13 +8,13 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="{{ asset('images/1.jpg') }}" class="d-block w-100" width="40%" alt="..." style="width: 40%;">
+      <img src="{{ asset('images/1.jpg') }}" class="d-block w-100" alt="..." style="height: 500px;">
       <div class="carousel-caption d-none d-md-block">
         <h5>Interstellar</h5>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="{{ asset('images/2.jpg') }}" class="d-block w-100" alt="..." style="width: 40%;">
+      <img src="{{ asset('images/2.jpg') }}" class="d-block w-100" alt="..." style="height: 500px;">
       <div class="carousel-caption d-none d-md-block">
         <h5>Captain America : Civil War</h5>
       </div>

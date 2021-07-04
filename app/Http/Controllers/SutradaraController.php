@@ -38,12 +38,23 @@ class SutradaraController extends Controller
      */
     public function store(Request $request)
     {
+        if (!empty($request->foto)) {
+            $request->validate(
+                ['foto'=>'image|mimes:png,jpg|max:2048']
+            );
+            $fileName = $request->nama.'.'.$request->foto->extension();
+            $request->foto->move(public_path('images'),$fileName);
+        } else {
+            $fileName = '';
+        }
+
         DB::table('sutradara')->insert(
             [
                 'nama'=>$request->nama,
                 'jenis_kelamin'=>$request->jenis_kelamin,
                 'umur'=>$request->umur,
-                'foto'=>$request->foto,
+                //'foto'=>$request->foto,
+                'foto'=>$fileName,
             ]
         );
         return redirect('/sutradara');
@@ -84,12 +95,23 @@ class SutradaraController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!empty($request->foto)) {
+            $request->validate(
+                ['foto'=>'image|mimes:png,jpg|max:2048']
+            );
+            $fileName = $request->nama.'.'.$request->foto->extension();
+            $request->foto->move(public_path('images'),$fileName);
+        } else {
+            $fileName = '';
+        }
+
         DB::table('sutradara')->where('id', '=', $id)->update(
             [
                 'nama'=>$request->nama,
                 'jenis_kelamin'=>$request->jenis_kelamin,
                 'umur'=>$request->umur,
-                'foto'=>$request->foto,
+                //'foto'=>$request->foto,
+                'foto'=>$fileName,
             ]
         );
         //2.landing page

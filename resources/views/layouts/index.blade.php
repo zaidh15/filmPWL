@@ -22,17 +22,14 @@
     <br/>
     @include('layouts.menu')
     <br/>
-
 	<div class="row">
 		<div class="col-md-9">
-        @yield('content')
+                @yield('content')
 		</div>
-    @include('layouts.sidebar')
+            @include('layouts.sidebar')
 	</div>
-
-
+    <br/>
     @include('layouts.footer')
-
 </div>
 
     <script src="{{ asset('js/jquery.min.js')}}"></script>

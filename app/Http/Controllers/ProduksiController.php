@@ -38,26 +38,27 @@ class ProduksiController extends Controller
      */
     public function store(Request $request)
     {
+        if (!empty($request->foto)) {
+            $request->validate(
+                ['foto'=>'image|mimes:png,jpg|max:2048']
+            );
+            $fileName = $request->nama.'.'.$request->foto->extension();
+            $request->foto->move(public_path('images'),$fileName);
+        } else {
+            $fileName = '';
+        }
+
         DB::table('produksi')->insert(
             [
                 'nama'=>$request->nama,
                 'email'=>$request->email,
                 'alamat'=>$request->alamat,
                 'hp'=>$request->hp,
-                'foto'=>$request->foto,
+                // 'foto'=>$request->foto,
+                'foto'=>$fileName,
             ]
         );
         return redirect('/produksi');
-
-        // if (!empty($request->foto)) {
-        //     $request->validate(
-        //         ['foto'=>'image|mimes:jpg,jpeg,png|max:2048']
-        //     );
-        //     $filename = $request->nama.'.'.$request->foto->extension();
-        //     $request->foto->move(public_path('images'),$filename);
-        // }
-        // else {
-        //     $filename = '';
     }
 
     /**
@@ -95,13 +96,23 @@ class ProduksiController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!empty($request->foto)) {
+            $request->validate(
+                ['foto'=>'image|mimes:png,jpg|max:2048']
+            );
+            $fileName = $request->nama.'.'.$request->foto->extension();
+            $request->foto->move(public_path('images'),$fileName);
+        } else {
+            $fileName = '';
+        }
         DB::table('produksi')->where('id', '=', $id)->update(
             [
                 'nama'=>$request->nama,
                 'email'=>$request->email,
                 'alamat'=>$request->alamat,
                 'hp'=>$request->hp,
-                'foto'=>$request->foto,
+                //'foto'=>$request->foto,
+                'foto'=>$fileName,
             ]
         );
         //2.landing page
